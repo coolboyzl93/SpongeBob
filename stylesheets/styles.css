@@ -1,0 +1,195 @@
+html, body {
+    /* flexbox 布局条件之一 */
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+
+    font-size: 10px;
+    background: rgb(94, 161, 223);
+}
+
+a {
+    text-decoration: none;
+}
+
+.main-header {
+    /* 作为flex-item的伸缩模式 */
+    /* 第一项0不拉伸，第二项1可收缩，第三项自动计算大小 */
+    flex: 0 1 auto;
+}
+
+.logo-text {
+    background: white;
+
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 37px;
+}
+
+.main-content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.thumbnail-list {
+    flex: 0 1 auto;
+    order: 2;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 20px 0;
+
+    /* 超出屏幕的内容不自动换行，使用滚动条显示 */
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.thumbnail-item {
+    display: inline-block;
+    /* 移动端优先的情况下，图片是横向滚动的，高度应该一致的，可以事先修整图像的大小,使其宽高一致，这样就很容易了*/
+    /* 如果不事先处理图像，css的时候要仔细注意图像和其父盒子的关系，及其对应的最大宽度和高度变化 */
+    min-height: 80px;
+    max-height: 80px;
+    /* css回退兼容设置，连续设置两次相同的css属性,后面的属性不识别就自动用前面的属性，识别后面的就会覆盖前面的属性 */
+    border: 1px solid rgb(100%, 100%, 100%);
+    border: 1px solid rgba(100%, 100%, 100%, 0.8);
+
+    /* 动画的回退状态由该类本身的transition决定（静态类） */
+    transition: transform 133ms ease;
+}
+
+.thumbnail-item:hover {
+    /* 动画的进入状态由触发该动画改变的类决定，在JS中也是如此，transiton意为由某一状态，过渡到当前类的状态所用的动画  */
+    transform: scale(1.2)
+}
+
+.thumbnail-img {
+    /* img默认是行内元素,设置block就可以消除图片和其他块元素间的空白 */
+    display: block;
+    /* width: 100%可以使图片和父容器宽度保持一致 */
+    height: 100%;
+}
+
+.thumbnail-title {
+    display: none;
+    margin: 0;
+    padding: 4px 10px;
+    background: rgb(96, 125, 129);
+    color: rgb(202, 238, 255);
+    font-size: 18px;
+}
+
+.detail-image-container {
+    flex:1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail-image-frame {
+    position: relative;
+    text-align: center;
+    /* cubic-bezier()是三次赛贝尔曲线的一个函数，它比ease之类的过渡效果更自由，可以访问网站cubic-bezier.com玩玩赛贝尔曲线 */
+    transition: transform 333ms cubic-bezier(1, .06, .28, 1);
+}
+
+.is-tiny {
+    transform: scale(0.001);
+    transition: transform 0ms;
+}
+
+.detail-image {
+    width: auto;
+}
+
+.detail-image-title {
+    position: absolute;
+    bottom: -16px;
+    left: 4px;
+    /* Google字体 */
+    font-family: 'Lobster', cursive;
+    /* text-shadow 是让文字美化的重要方法之一 */
+    text-shadow: rgba(0, 0, 0, 0.9) 1px 2px 9px;
+    color: black;
+    font-size: 40px;
+}
+
+.hidden-detail .detail-image-container {
+    display: none;
+}
+
+.hidden-detail .thumbnail-list {
+    flex-direction: column;
+    align-items: center;
+}
+
+.hidden-detail .thumbnail-item {
+    max-width: 80%;
+}
+
+
+/*@media <设备类型> and (<屏幕宽高生效范围（反向思考）>) {...}*/
+/* 移动端优先的方法就是用 min-开头，来表示超过这个宽度，样式发生怎样的变化 */
+@media all and (min-width: 768px) {
+    .main-content {
+        flex-direction: row;
+        overflow: hidden;
+    }
+
+    .thumbnail-list {
+        flex-direction: column;
+        order: 0;
+        margin-left: 20px;
+
+        padding: 0 35px;
+    }
+
+    .thumbnail-item {
+        max-width: 260px;
+        min-width: 120px;
+        /* 如果想让min-height失效，设置为auto,让子元素决定。想让max-height失效，设置为none */
+        min-height: auto;
+        max-height: none;
+    }
+
+    .thumbnail-img {
+        width: 100%;
+        height: auto;
+    }
+
+    .thumbnail-title {
+        display: block;
+    }
+
+    .thumbnail-item + .thumbnail-item {
+        margin-top: 20px;
+    }
+}
+
+/* 根据手机的横（landscape）竖（portrait）的方向（orientation）来写样式*/
+/*一般是竖屏优先，所以常用的是orientation: landscape */
+/* @media all and (orientation: landscape) {
+    .main-content {
+        flex-direction: row;
+        overflow: hidden;
+    }
+
+    .thumbnail-list {
+        flex-direction: column;
+        order: 0;
+        margin-left: 20px;
+    }
+
+    .thumbnail-item {
+        max-width: 260px;
+    }
+
+    .thumbnail-item + .thumbnail-item {
+        margin-top: 20px;
+    }
+} */

@@ -1,0 +1,13 @@
+{
+  "name": "bookWeb",
+  "version": "1.0.0",
+  "description": "step by step",
+  "main": "index.js",
+  "author": "ray",
+  "license": "MIT",
+  "private": null,
+  "scripts": {
+    "view": "browser-sync start --server --files \"*.html, stylesheets/*.css, js/*.js\" "
+  },
+  "devDependencies": {}
+}
