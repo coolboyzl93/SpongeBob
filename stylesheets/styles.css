@@ -55,6 +55,8 @@ a {
     /* 如果不事先处理图像，css的时候要仔细注意图像和其父盒子的关系，及其对应的最大宽度和高度变化 */
     min-height: 80px;
     max-height: 80px;
+    max-width: 120px;
+    min-width: auto;
     /* css回退兼容设置，连续设置两次相同的css属性,后面的属性不识别就自动用前面的属性，识别后面的就会覆盖前面的属性 */
     border: 1px solid rgb(100%, 100%, 100%);
     border: 1px solid rgba(100%, 100%, 100%, 0.8);
@@ -151,7 +153,6 @@ a {
 
     .thumbnail-item {
         max-width: 260px;
-        min-width: 120px;
         /* 如果想让min-height失效，设置为auto,让子元素决定。想让max-height失效，设置为none */
         min-height: auto;
         max-height: none;
