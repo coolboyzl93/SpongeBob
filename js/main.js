@@ -9,23 +9,23 @@
 */
 
 // DOM选择器
-const DETAIL_IMAGE_SELECTOR = '[data-image-role="target"]'
-const DETAIL_TITLE_SELECTOR = '[data-image-role="title"]'
-const THUMBNAIL_LINK_SELECTOR = '[ data-image-role="trigger"]'
-const DETAIL_FRAME_SELECTOR = '[data-image-role="frame"]'
+var DETAIL_IMAGE_SELECTOR = '[data-image-role="target"]'
+var DETAIL_TITLE_SELECTOR = '[data-image-role="title"]'
+var THUMBNAIL_LINK_SELECTOR = '[ data-image-role="trigger"]'
+var DETAIL_FRAME_SELECTOR = '[data-image-role="frame"]'
 // 类
-const HIDDEN_DTEAIL_CLASS = 'hidden-detail'
-const TINY_EFFECT_CLASS = 'is-tiny'
+var HIDDEN_DTEAIL_CLASS = 'hidden-detail'
+var TINY_EFFECT_CLASS = 'is-tiny'
 // 键值
-const ESC_KEY = 27
+var ESC_KEY = 27
 
 // 设置大图像的信息
 function setDetails (imgUrl, titleText) {
   'use strict'
-  let detailImage = document.querySelector(DETAIL_IMAGE_SELECTOR)
+  var detailImage = document.querySelector(DETAIL_IMAGE_SELECTOR)
   detailImage.setAttribute('src', imgUrl)
 
-  let detailTitle = document.querySelector(DETAIL_TITLE_SELECTOR)
+  var detailTitle = document.querySelector(DETAIL_TITLE_SELECTOR)
   detailTitle.textContent = titleText
 }
 
@@ -60,8 +60,8 @@ function addThumbnailClickHandler (thumbnail) {
 // 将nodelit变成数组
 function getThumbnailsArray () {
   'use strict'
-  let thumbnails = document.querySelectorAll(THUMBNAIL_LINK_SELECTOR)
-  let thumbnailsArray = [].slice.call(thumbnails)
+  var thumbnails = document.querySelectorAll(THUMBNAIL_LINK_SELECTOR)
+  var thumbnailsArray = [].slice.call(thumbnails)
   return thumbnailsArray
 }
 
@@ -74,7 +74,7 @@ function hideDetails () {
 // 移除hidden类
 function showDetails () {
   'use strict'
-  let frame = document.querySelector(DETAIL_FRAME_SELECTOR)
+  var frame = document.querySelector(DETAIL_FRAME_SELECTOR)
   document.body.classList.remove(HIDDEN_DTEAIL_CLASS)
   // js 配合css类命的重要动画方法，通过一个延迟的删除类函数，来实现。
   frame.classList.add(TINY_EFFECT_CLASS)
@@ -96,12 +96,10 @@ function addkeyPressHandler () {
 }
 
 // 初始化事件监听
-function initializeEvents () {
+(function initializeEvents () {
   'use strict'
-  let thumbnails = getThumbnailsArray()
+  var thumbnails = getThumbnailsArray()
   // map中传入一个函数名，可以直接将数组中的每个元素作为该函数的参数
   thumbnails.map(addThumbnailClickHandler)
   addkeyPressHandler()
-}
-
-initializeEvents()
+})()
